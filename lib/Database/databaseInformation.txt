@@ -1,0 +1,105 @@
+List of tables.
+---------------
+loginCredentials_Tabl
+=====================
+-id - PK
+-name
+-mobile
+-password
+-regDate
+-isLogin
+
+sadhanaCard_Table
+=================
+-id - PK
+-sadhanaDate
+-pointCardId - FK
+
+-chantingBefore8
+-chantingBetween8To6
+-chantingAfter6
+-earnedChantingPoints
+
+-readingMinutes
+-readingHours
+-readingTopic
+
+-hearingMinutes
+-hearingHours
+-hearingTopic
+
+-earnedReadingAndHearingPoints
+
+-serviceMinutes
+-serviceHours
+-serviceTopic
+
+-moreServiceMinutes
+-moreServiceHours
+-moreServiceTopic
+
+-earnedServiceAndMoreServicePoints
+
+pointCard_Table
+=================
+-id - PK
+-date
+
+4.5-chantingBefore8
+3.0-chantingBetween8To6
+1.5-chantingAfter6
+72 -chantingMaxScore
+-20-chantingMinScore
+
+18-readingAndhearingMaxScore
+ 0-readingAndhearingMinScore
+
+18-serviceAndmoreServiceMaxScore
+ 0-serviceAndmoreServiceMinScore
+
+
+NOTE:
+=====
+1-CHANTING SCORE CALCULATION
+-------------------------------------
+IF CHANTING_SCORE(BEFORE8*4.5+BETWEEN8TO6+3.0+AFTER6*1.5) >= 72(vchantingMaxScore) THEN
+{
+	SCORE = chantingMaxScore;
+}
+ELSE
+{
+	SCORE = BEFORE8*4.5+BETWEEN8TO6+3.0+AFTER6*1.5;
+}
+
+-------------------------------------
+2-READING & HEARING SCORE CALCULATION
+-------------------------------------
+IF((readingMinutes + hearingMinutes + ((readingHours + hearingHours)/60)) < 15)
+{
+	SCORE = -20;
+}
+ELSE IF(((readingMinutes + hearingMinutes + ((readingHours + hearingHours)/60))/60)*18 > 18)
+{
+	SCORE = 18;
+}
+ELSE
+{
+	SCORE = ((readingMinutes + hearingMinutes + ((readingHours + hearingHours)/60))/60)*18;
+}
+
+-------------------------------------
+3-SERVICE & MORE SERVICE SCORE CALCULATION
+-------------------------------------
+-------------------------------------
+IF((serviceMinutes + moreServiceMinutes + ((serviceHours + moreServiceHours)/60)) < 15)
+{
+	SCORE = -20;
+}
+ELSE IF(((serviceMinutes + moreServiceMinutes + ((serviceHours + moreServiceHours)/60))/30)*10 > 18)
+{
+	SCORE = 10;
+}
+ELSE
+{
+	SCORE = ((serviceMinutes + moreServiceMinutes + ((serviceHours + moreServiceHours)/60))/30)*10;
+}
